@@ -150,6 +150,7 @@ if(CUDA_FOUND AND USE_CUDA)
     else()
         set(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS};
         -gencode arch=compute_80,code=sm_80;
+		-gencode arch=compute_86,code=sm_86;
         #-gencode arch=compute_80,code=compute_80;
         )
     endif()
