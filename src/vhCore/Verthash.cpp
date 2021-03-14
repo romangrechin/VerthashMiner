@@ -11,7 +11,7 @@
 #include "../external/fopen_utf8.h"
 #include "Verthash.h"
 
-
+#define BUFFER_SIZE 65536
 //-----------------------------------------------------------------------------
 // Verthash info management
 int verthash_info_init(verthash_info_t* info, const char* file_name)
@@ -57,8 +57,9 @@ int verthash_info_init(verthash_info_t* info, const char* file_name)
     }
 
     // Load data
-    fread(info->data, fileSize, 1, fileMiningData);
-    fclose(fileMiningData);
+	size_t count = fileSize / BUFFER_SIZE;
+	fread(info->data, BUFFER_SIZE, count, fileMiningData);
+	fclose(fileMiningData);
 
     // Update fields
     info->bitmask = ((fileSize - VH_HASH_OUT_SIZE)/VH_BYTE_ALIGNMENT) + 1;
